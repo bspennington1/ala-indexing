@@ -52,9 +52,12 @@ CREATE TABLE Game
 
 CREATE TABLE GameStatistics
 (
+  GameStatisticsID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Attendance INT NOT NULL,
   Duration INT,
   GameCode bigint NOT NULL,
+  PRIMARY KEY(GameStatisticsID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode)
 );
 
@@ -79,6 +82,8 @@ CREATE TABLE Player
 
 CREATE TABLE PlayerGameStatistics
 (
+  PlayerGameStatisticsID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   RushAtt INT NOT NULL,
   RushYard INT NOT NULL,
   RushTD INT NOT NULL,
@@ -137,12 +142,15 @@ CREATE TABLE PlayerGameStatistics
   KickPuntBlocked INT NOT NULL,
   PlayerCode INT NOT NULL,
   GameCode bigint NOT NULL,
+  PRIMARY KEY (PlayerGameStatisticsID),
   FOREIGN KEY (PlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode)
 );
 
 CREATE TABLE TeamGameStatistics
 (
+  TeamGameStatisticsID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   RushAtt INT NOT NULL,
   RushYard INT NOT NULL,
   RushTD INT NOT NULL,
@@ -210,12 +218,15 @@ CREATE TABLE TeamGameStatistics
   RedZoneFieldGoal INT NOT NULL,
   TeamCode INT NOT NULL,
   GameCode bigint NOT NULL,
+  PRIMARY KEY (TeamGameStatisticsID),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode)
 );
 
-CREATE TABLE 
+CREATE TABLE Drive 
 (
+  DriveID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   DriveNumber INT NOT NULL,
   StartPeriod INT NOT NULL,
   StartClock INT,
@@ -231,13 +242,15 @@ CREATE TABLE
   RedZoneAttempt INT NOT NULL,
   GameCode bigint NOT NULL,
   TeamCode INT NOT NULL,
-  PRIMARY KEY (DriveNumber),
+  PRIMARY KEY (DriveID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE Play
 (
+  PlayID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   PlayNumber INT NOT NULL,
   PeriodNumber INT NOT NULL,
   Clock INT,
@@ -251,14 +264,15 @@ CREATE TABLE Play
   DriveNumber INT,
   OffenseTeamCode INT NOT NULL,
   DefenseTeamCode INT NOT NULL,
-  PRIMARY KEY (PlayNumber),
-  FOREIGN KEY (DriveNumber) REFERENCES (DriveNumber),
+  PRIMARY KEY (PlayID),
   FOREIGN KEY (OffenseTeamCode) REFERENCES Team(TeamCode),
   FOREIGN KEY (DefenseTeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE Punt
 (
+  PuntID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Attempt INT NOT NULL,
   Yards INT NOT NULL,
   Blocked INT NOT NULL,
@@ -270,14 +284,16 @@ CREATE TABLE Punt
   PlayNumber INT NOT NULL,
   PlayerCode INT NOT NULL,
   TeamCode INT NOT NULL,
+  PRIMARY KEY (PuntID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (PlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE PuntReturn
 (
+  PuntReturnID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Attempt INT NOT NULL,
   Yards INT NOT NULL,
   Touchdown INT NOT NULL,
@@ -289,14 +305,16 @@ CREATE TABLE PuntReturn
   PlayNumber INT NOT NULL,
   PlayerCode INT NOT NULL,
   TeamCode INT NOT NULL,
+  PRIMARY KEY (PuntReturnID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (PlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE Reception
 (
+  ReceptionID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Reception INT NOT NULL,
   Yards INT NOT NULL,
   Touchdown INT NOT NULL,
@@ -308,14 +326,16 @@ CREATE TABLE Reception
   PlayNumber INT NOT NULL,
   PlayerCode INT NOT NULL,
   TeamCode INT NOT NULL,
+  PRIMARY KEY (ReceptionID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (PlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE Rush
 (
+  RushID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Attempt INT NOT NULL,
   Yards INT NOT NULL,
   TouchDown INT NOT NULL,
@@ -328,14 +348,16 @@ CREATE TABLE Rush
   PlayNumber INT NOT NULL,
   PlayerCode INT NOT NULL,
   TeamCode INT NOT NULL,
+  PRIMARY KEY (RushID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (PlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE Kickoff
 (
+  KickoffID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   PlayerCode INT NOT NULL,
   Attempt INT NOT NULL,
   Yards INT NOT NULL,
@@ -348,13 +370,15 @@ CREATE TABLE Kickoff
   GameCode bigint NOT NULL,
   PlayNumber INT NOT NULL,
   TeamCode INT NOT NULL,
+  PRIMARY KEY (KickoffID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
 );
 
 CREATE TABLE KickoffReturn
 (
+  KickoffReturnID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Attempt INT NOT NULL,
   Yards INT NOT NULL,
   Touchdown INT NOT NULL,
@@ -366,14 +390,16 @@ CREATE TABLE KickoffReturn
   PlayNumber INT NOT NULL,
   TeamCode INT NOT NULL,
   PlayerCode INT NOT NULL,
+  PRIMARY KEY (KickoffReturnID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode),
   FOREIGN KEY (PlayerCode) REFERENCES Player(PlayerCode)
 );
 
 CREATE TABLE Pass
 (
+  PassID uniqueidentifier NOT NULL
+	DEFAULT newid(),
   Attempt INT NOT NULL,
   Completion INT NOT NULL,
   Yards INT NOT NULL,
@@ -386,8 +412,8 @@ CREATE TABLE Pass
   PasserPlayerCode INT NOT NULL,
   ReceiverPlayerCode INT,
   TeamCode INT NOT NULL,
+  PRIMARY KEY (PassID),
   FOREIGN KEY (GameCode) REFERENCES Game(GameCode),
-  FOREIGN KEY (PlayNumber) REFERENCES Play(PlayNumber),
   FOREIGN KEY (PasserPlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (ReceiverPlayerCode) REFERENCES Player(PlayerCode),
   FOREIGN KEY (TeamCode) REFERENCES Team(TeamCode)
