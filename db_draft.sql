@@ -9,7 +9,7 @@ CREATE TABLE Conference
 CREATE TABLE Stadium
 (
   StadiumCode INT NOT NULL,
-  Name VARCHAR(30) NOT NULL,
+  Name VARCHAR(100) NOT NULL,
   City VARCHAR(30) NOT NULL,
   State VARCHAR(2) NOT NULL,
   Capacity INT NOT NULL,
