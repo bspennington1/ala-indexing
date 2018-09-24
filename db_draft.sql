@@ -33,6 +33,7 @@ CREATE TABLE Season
   Year INT NOT NULL,
   PRIMARY KEY (SeasonId)
 );
+insert into Season VALUES(2005,2005);
 
 CREATE TABLE Game
 (
@@ -105,12 +106,12 @@ CREATE TABLE PlayerGameStatistics
   FumRet INT NOT NULL,
   FumRetYard INT NOT NULL,
   FumRetTD INT NOT NULL,
-  Int INT NOT NULL,
+  IntRet INT NOT NULL,
   IntRetYard INT NOT NULL,
   IntRetTD INT NOT NULL,
   MiscRet INT NOT NULL,
   MiscRetYard INT NOT NULL,
-  MisRetTD INT NOT NULL,
+  MiscRetTD INT NOT NULL,
   FieldGoalAtt INT NOT NULL,
   FieldGoalMade INT NOT NULL,
   OffXPKickAtt INT NOT NULL,
